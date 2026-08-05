@@ -188,6 +188,7 @@ function Inspector({ node }: { node: StepNodeType | undefined }) {
                   <NodeIcon type={connection.nodeType} className="size-4" />
                   <span className="truncate">{connection.label}</span>
                 </button>
+              ))}
             </div>
           </div>
         )}

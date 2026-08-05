@@ -117,7 +117,7 @@ function Field({
 
 // The Editor tab: one input per field on the selected node, or an empty state.
 function Inspector({ node }: { node: StepNodeType | undefined }) {
-  const { updateNodeData } = useReactFlow<StepNodeType>()
+  const { updateNodeData, deleteElements } = useReactFlow<StepNodeType>()
   // Outputs of every node upstream of the selected one, as insertable {{ }}
   // tokens. Empty when nothing feeds into this node.
   const connections = useUpstreamConnections()
@@ -190,7 +190,19 @@ function Inspector({ node }: { node: StepNodeType | undefined }) {
                 </button>
               ))}
             </div>
-          </div>
+        {/* Delete node button */}
+        {node.data.kind !== "trigger" && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="mt-2 w-full gap-2 text-xs text-destructive hover:bg-destructive/10 hover:text-destructive"
+            onClick={() => {
+              deleteElements({ nodes: [{ id: node.id }] })
+            }}
+          >
+            <Trash2 className="size-3.5" />
+            Delete node
+          </Button>
         )}
       </div>
     </Section>

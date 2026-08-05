@@ -17,7 +17,14 @@ export async function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const { orgId } = await auth()
-  const workflows = orgId ? await listWorkflows(orgId) : []
+  let workflows: import("@/lib/db/schema").Workflow[] = []
+  if (orgId) {
+    try {
+      workflows = await listWorkflows(orgId)
+    } catch (error) {
+      console.error("Failed to list workflows:", error)
+    }
+  }
 
   return (
     <Sidebar variant="inset" collapsible="icon" {...props}>

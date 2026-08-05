@@ -16,11 +16,7 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
-const rawKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || ""
-let publishableKey = rawKey.trim().replace(/['"]/g, "")
-if (publishableKey.startsWith("pk_") && !publishableKey.endsWith("$")) {
-  publishableKey += "$"
-}
+
 
 export default function RootLayout({
   children,
@@ -40,7 +36,6 @@ export default function RootLayout({
     >
       <body>
         <ClerkProvider
-          publishableKey={publishableKey || undefined}
           appearance={{ theme: shadcn }}
           taskUrls={{ "choose-organization": "/choose-organization" }}
         >

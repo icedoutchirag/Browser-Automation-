@@ -1,13 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
 
-if (process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
-  let k = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.trim().replace(/['"]/g, "")
-  if (k.startsWith("pk_") && !k.endsWith("$")) {
-    k += "$"
-  }
-  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY = k
-}
-
 const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)"])
 
 export default clerkMiddleware(async (auth, request) => {

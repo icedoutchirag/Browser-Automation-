@@ -190,23 +190,26 @@ TRIGGER_SECRET_KEY=tr_dev_...
 NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY=pk_dev_...
 LIVEBLOCKS_SECRET_KEY=sk_dev_...
 
-# Browserbase Automation
+# Stagehand Environment (BROWSERBASE or LOCAL)
+STAGEHAND_ENV=BROWSERBASE
 BROWSERBASE_API_KEY=bb_live_...
+OPENAI_API_KEY=sk-... # Required if STAGEHAND_ENV=LOCAL
 ```
 
 ### 4. Push Database Schema
-Run the database migration script against your Neon Postgres database:
+Run the database schema push against your Neon Postgres database:
 ```bash
-npx tsx scripts/apply-migration.ts
+npm run db:push
 ```
 
 ### 5. Start Development Servers
-Run Trigger.dev local task runner in one terminal:
+Run Trigger.dev local task runner in Terminal 1:
 ```bash
-npx trigger.dev dev
+# PowerShell / CMD
+npx trigger.dev dev --skip-update-check
 ```
 
-Run Next.js dev server in another terminal:
+Run Next.js dev server in Terminal 2:
 ```bash
 npm run dev
 ```

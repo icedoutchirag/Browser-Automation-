@@ -86,9 +86,10 @@ export const runWorkflowTask = task({
     let browserbaseSessionId: string | undefined
     const getStagehand = async () => {
       if (stagehand) return stagehand
+      const stagehandEnv = (process.env.STAGEHAND_ENV as "LOCAL" | "BROWSERBASE") || "BROWSERBASE"
       stagehand = new Stagehand({
-        env: "BROWSERBASE",
-        apiKey: process.env.BROWSERBASE_API_KEY!,
+        env: stagehandEnv,
+        apiKey: stagehandEnv === "BROWSERBASE" ? process.env.BROWSERBASE_API_KEY! : undefined,
         model: "openai/gpt-4.1-mini",
         // Pino's logging backend spawns a thread-stream worker (lib/worker.js)
         // that can't be resolved inside trigger.dev's bundled output. Disable it —

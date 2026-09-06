@@ -7,7 +7,15 @@ export async function agent({
   stagehand: Stagehand
   instruction: string
 }) {
-  const result = await stagehand.agent().execute(instruction)
+  const agentInstance = stagehand.agent({
+    model: "openai/gpt-4.1-mini",
+  })
+
+  const result = await agentInstance.execute(instruction)
+
+  if (!result.success && !result.completed) {
+    throw new Error(result.message || "Agent failed to complete the instruction.")
+  }
 
   return {
     success: result.success,
@@ -15,3 +23,4 @@ export async function agent({
     completed: result.completed,
   }
 }
+
